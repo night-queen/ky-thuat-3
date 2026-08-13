@@ -1,0 +1,10 @@
+{
+  "fonts": [
+    { "family": "Playfair Display", "style": "Regular" },
+    { "family": "Playfair Display", "style": "Bold" },
+    { "family": "Playfair Display", "style": "Italic" },
+    { "family": "Be Vietnam Pro", "style": "Regular" },
+    { "family": "Be Vietnam Pro", "style": "Medium" },
+    { "family": "Be Vietnam Pro", "style": "Light" }
+  ]
+}
