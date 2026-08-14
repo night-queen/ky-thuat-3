@@ -112,11 +112,6 @@ img {
   height: auto;
 }
 
-/* Sections sit under a fixed header — keep anchor jumps clear of it. */
-section[id] {
-  scroll-margin-top: 5rem;
-}
-
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -134,33 +129,6 @@ section[id] {
   width: 0;
   height: 0;
   overflow: hidden;
-}
-
-.skip-link {
-  position: absolute;
-  left: -9999px;
-  top: 0;
-  z-index: 100;
-  padding: 0.75rem 1.25rem;
-  background: var(--header-bg);
-  color: var(--gold);
-  border: 1px solid var(--gold);
-  border-radius: 0 0 0.5rem 0;
-}
-.skip-link:focus {
-  left: 0;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
 }
 
 /* --------------------------------------------------------------------------
@@ -302,116 +270,7 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   5. Navigation
-   -------------------------------------------------------------------------- */
-.nav {
-  position: fixed;
-  inset: 0 0 auto 0;
-  z-index: 50;
-  background: transparent;
-  border-bottom: 1px solid transparent;
-  transition:
-    background 0.3s ease,
-    border-color 0.3s ease,
-    backdrop-filter 0.3s ease;
-}
-
-.nav.is-scrolled {
-  background: rgba(20, 18, 37, 0.97);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border-bottom-color: var(--gold-border);
-}
-
-.nav__inner {
-  max-width: 80rem;
-  margin: 0 auto;
-  padding: 1rem 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.nav__brand {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.nav__brand-name {
-  font-family: var(--font-serif);
-  font-size: 0.875rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
-.nav__links {
-  display: none;
-  align-items: center;
-  gap: 2rem;
-}
-
-.nav__link {
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-70);
-  transition: color 0.2s ease;
-}
-
-.nav__link:hover,
-.nav__link:focus-visible {
-  color: #fbbf24;
-}
-
-.nav__toggle {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 0.5rem;
-  color: var(--gold);
-}
-
-.nav__toggle span {
-  display: block;
-  width: 1.25rem;
-  height: 0.125rem;
-  background: currentColor;
-}
-
-.nav__mobile {
-  display: none;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 0 1.5rem 1.5rem;
-  background: rgba(20, 18, 37, 0.98);
-}
-
-.nav__mobile.is-open {
-  display: flex;
-}
-
-.nav__mobile-link {
-  font-size: 0.875rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-80);
-}
-
-@media (min-width: 768px) {
-  .nav__links {
-    display: flex;
-  }
-  .nav__toggle,
-  .nav__mobile {
-    display: none !important;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   6. Hero
+   5. Hero
    -------------------------------------------------------------------------- */
 .hero {
   position: relative;
@@ -472,7 +331,7 @@ section[id] {
   z-index: 10;
   max-width: 56rem;
   margin: 0 auto;
-  padding: 6rem 1.5rem 0;
+  padding: 0 1.5rem;
   text-align: center;
 }
 
@@ -560,7 +419,7 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   7. Section shell
+   6. Section shell
    -------------------------------------------------------------------------- */
 .section {
   position: relative;
@@ -643,7 +502,7 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   8. Grids
+   7. Grids
    -------------------------------------------------------------------------- */
 .grid {
   display: grid;
@@ -703,7 +562,7 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   9. Cards + editorial primitives
+   8. Cards + editorial primitives
    -------------------------------------------------------------------------- */
 .card {
   border-radius: 1rem;
@@ -810,7 +669,7 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   10. Introduction
+   9. Introduction
    -------------------------------------------------------------------------- */
 .intro {
   position: relative;
@@ -958,7 +817,7 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   11. Eyes — movement list
+   10. Eyes — movement list
    -------------------------------------------------------------------------- */
 .movements {
   border-radius: 1rem;
@@ -1039,7 +898,7 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   12. Accordion
+   11. Accordion
    -------------------------------------------------------------------------- */
 .accordion > * + * {
   margin-top: 0.5rem;
@@ -1102,7 +961,7 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   13. Feet — technique tiles + character comparison
+   12. Feet — technique tiles + character comparison
    -------------------------------------------------------------------------- */
 .tile {
   border-radius: 0.75rem;
@@ -1180,7 +1039,7 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   14. Illustration frames
+   13. Illustration frames
    -------------------------------------------------------------------------- */
 .figure-frame {
   display: flex;
@@ -1208,7 +1067,7 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   15. Beard — swatch list, tabs, example block
+   14. Beard — swatch list, tabs, example block
    -------------------------------------------------------------------------- */
 .swatch {
   display: flex;
@@ -1351,7 +1210,7 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   16. References + footer
+   15. References + footer
    -------------------------------------------------------------------------- */
 .references {
   position: relative;
@@ -1488,7 +1347,7 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   17. Focus visibility
+   16. Focus visibility
    -------------------------------------------------------------------------- */
 :focus-visible {
   outline: 2px solid var(--gold);

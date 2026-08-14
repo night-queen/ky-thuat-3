@@ -30,8 +30,8 @@ server reads from disk on every request and sends `cache-control: no-cache`.
   with `<use href="#id">` and `fill="url(#id)"`.
 - `assets/css/style.css` — the whole stylesheet, organised in numbered
   sections. Design tokens are CSS custom properties on `:root`.
-- `assets/js/main.js` — the behaviour layer: sticky nav, mobile menu, hero
-  parallax, reveal-on-scroll, accordions, tabs. One IIFE, no modules.
+- `assets/js/main.js` — the behaviour layer: hero parallax, reveal-on-scroll,
+  accordions, tabs. One IIFE, no modules.
 - `tools/dev-server.mjs`, `tools/build.mjs` — the dev/build scripts.
 - `reference/` — source material. `design-brief.md` is the original brief;
   the `IMG_*.png` files are the source document pages. Not shipped.

@@ -27,7 +27,7 @@ to install.
 ```
 index.html            the entire page, plus an SVG sprite of every ornament
 assets/css/style.css  the entire stylesheet
-assets/js/main.js     nav, mobile menu, parallax, reveals, accordions, tabs
+assets/js/main.js     parallax, reveals, accordions, tabs
 tools/                dev server + build script
 reference/            source document pages and the original design brief
 ```

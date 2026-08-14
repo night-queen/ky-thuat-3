@@ -8,39 +8,6 @@
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   /* ------------------------------------------------------------------------
-     Navigation: solid background once scrolled past the hero fold
-     ------------------------------------------------------------------------ */
-  var nav = document.getElementById('nav')
-
-  if (nav) {
-    var syncNav = function () {
-      nav.classList.toggle('is-scrolled', window.scrollY > 60)
-    }
-    window.addEventListener('scroll', syncNav, { passive: true })
-    syncNav()
-  }
-
-  /* ------------------------------------------------------------------------
-     Mobile menu
-     ------------------------------------------------------------------------ */
-  var toggle = document.getElementById('nav-toggle')
-  var mobileMenu = document.getElementById('nav-mobile')
-
-  if (toggle && mobileMenu) {
-    toggle.addEventListener('click', function () {
-      var open = mobileMenu.classList.toggle('is-open')
-      toggle.setAttribute('aria-expanded', String(open))
-    })
-
-    mobileMenu.addEventListener('click', function (event) {
-      if (event.target.closest('a')) {
-        mobileMenu.classList.remove('is-open')
-        toggle.setAttribute('aria-expanded', 'false')
-      }
-    })
-  }
-
-  /* ------------------------------------------------------------------------
      Hero parallax: the geometric pattern drifts at 30% of scroll speed
      ------------------------------------------------------------------------ */
   var heroPattern = document.getElementById('hero-pattern')

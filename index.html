@@ -36,8 +36,6 @@
   </head>
   <body>
     <!-- figma:body-start -->
-    <a class="skip-link" href="#main">Bỏ qua phần điều hướng</a>
-
     <!-- ====================================================================
          SVG sprite: reusable ornaments and background patterns.
          ==================================================================== -->
@@ -52,17 +50,6 @@
           <path d="M60 10 L110 35 L110 85 L60 110 L10 85 L10 35 Z" fill="none" stroke="#D4A94A" stroke-width="0.8" />
         </pattern>
       </defs>
-
-      <!-- Lotus, full (navigation) -->
-      <symbol id="lotus-full" viewBox="0 0 28 28">
-        <ellipse cx="14" cy="18" rx="3" ry="6" stroke="#D4A94A" stroke-width="1.2" fill="none" />
-        <ellipse cx="8" cy="17" rx="2.5" ry="5.5" stroke="#D4A94A" stroke-width="1" fill="none" transform="rotate(-20 8 17)" />
-        <ellipse cx="20" cy="17" rx="2.5" ry="5.5" stroke="#D4A94A" stroke-width="1" fill="none" transform="rotate(20 20 17)" />
-        <ellipse cx="4" cy="18" rx="2" ry="4.5" stroke="#D4A94A" stroke-width="0.8" fill="none" transform="rotate(-40 4 18)" />
-        <ellipse cx="24" cy="18" rx="2" ry="4.5" stroke="#D4A94A" stroke-width="0.8" fill="none" transform="rotate(40 24 18)" />
-        <line x1="14" y1="22" x2="14" y2="26" stroke="#D4A94A" stroke-width="1.2" />
-        <line x1="10" y1="25" x2="18" y2="25" stroke="#D4A94A" stroke-width="1" />
-      </symbol>
 
       <!-- Lotus, crown only (references) -->
       <symbol id="lotus-crown" viewBox="0 0 28 22">
@@ -160,50 +147,7 @@
       </symbol>
     </svg>
 
-    <!-- ====================================================================
-         Navigation
-         ==================================================================== -->
-    <nav class="nav" id="nav" aria-label="Điều hướng chính">
-      <div class="nav__inner">
-        <div class="nav__brand">
-          <svg width="28" height="28" aria-hidden="true"><use href="#lotus-full" /></svg>
-          <span class="nav__brand-name">Hát Bội</span>
-        </div>
-
-        <div class="nav__links">
-          <a class="nav__link" href="#introduction">Tổng Quan</a>
-          <a class="nav__link" href="#mat">Mắt</a>
-          <a class="nav__link" href="#tay">Tay</a>
-          <a class="nav__link" href="#chan">Chân</a>
-          <a class="nav__link" href="#cuoi-ngua">Cưỡi Ngựa</a>
-          <a class="nav__link" href="#vuot-rau">Vuốt Râu</a>
-          <a class="nav__link" href="#references">Tài Liệu</a>
-        </div>
-
-        <button
-          class="nav__toggle"
-          id="nav-toggle"
-          type="button"
-          aria-label="Menu"
-          aria-expanded="false"
-          aria-controls="nav-mobile"
-        >
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-
-      <div class="nav__mobile" id="nav-mobile">
-        <a class="nav__mobile-link" href="#introduction">Tổng Quan</a>
-        <a class="nav__mobile-link" href="#mat">Mắt</a>
-        <a class="nav__mobile-link" href="#tay">Tay</a>
-        <a class="nav__mobile-link" href="#chan">Chân</a>
-        <a class="nav__mobile-link" href="#cuoi-ngua">Cưỡi Ngựa</a>
-        <a class="nav__mobile-link" href="#vuot-rau">Vuốt Râu</a>
-        <a class="nav__mobile-link" href="#references">Tài Liệu</a>
-      </div>
-    </nav>
-
-    <main id="main">
+    <main>
       <!-- ==================================================================
            Hero
            ================================================================== -->
