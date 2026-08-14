@@ -1,0 +1,1496 @@
+/* ==========================================================================
+   Kĩ Thuật Biểu Diễn — Hát Bội
+   Hand-written stylesheet. No build step, no framework.
+   Palette + type scale mirror the original design tokens exactly.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  --maroon: #a01818;
+  --maroon-dark: #7a0f10;
+  --navy: #16213e;
+  --navy-deep: #0f1830;
+  --gold: #d4a94a;
+  --gold-light: #e8c777;
+  --header-bg: #141225;
+  --ink: #f5f0e8;
+
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Ink at varying strengths — used everywhere for body copy. */
+  --ink-95: rgba(245, 240, 232, 0.95);
+  --ink-92: rgba(245, 240, 232, 0.92);
+  --ink-88: rgba(245, 240, 232, 0.88);
+  --ink-82: rgba(245, 240, 232, 0.82);
+  --ink-80: rgba(245, 240, 232, 0.8);
+  --ink-78: rgba(245, 240, 232, 0.78);
+  --ink-75: rgba(245, 240, 232, 0.75);
+  --ink-70: rgba(245, 240, 232, 0.7);
+  --ink-60: rgba(245, 240, 232, 0.6);
+  --ink-50: rgba(245, 240, 232, 0.5);
+
+  /* Gold at varying strengths — borders, rules, ghost numerals. */
+  --gold-hairline: rgba(212, 169, 74, 0.1);
+  --gold-veil: rgba(212, 169, 74, 0.08);
+  --gold-ghost: rgba(212, 169, 74, 0.12);
+  --gold-border: rgba(212, 169, 74, 0.2);
+  --gold-border-strong: rgba(212, 169, 74, 0.25);
+  --gold-muted: rgba(212, 169, 74, 0.4);
+  --gold-soft: rgba(212, 169, 74, 0.5);
+  --gold-mid: rgba(212, 169, 74, 0.6);
+  --gold-warm: rgba(212, 169, 74, 0.7);
+
+  /* Surfaces */
+  --surface-navy: rgba(15, 24, 48, 0.7);
+  --surface-navy-soft: rgba(15, 24, 48, 0.5);
+  --surface-maroon: rgba(160, 24, 24, 0.25);
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset + base
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  background-color: var(--navy-deep);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+p,
+figure,
+blockquote,
+pre {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+svg {
+  display: block;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Sections sit under a fixed header — keep anchor jumps clear of it. */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--navy-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--maroon);
+  border-radius: 3px;
+}
+
+/* Off-screen SVG sprite holding <symbol> and <pattern> definitions. */
+.sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background: var(--header-bg);
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 0 0 0.5rem 0;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   3. Shared typography + primitives
+   -------------------------------------------------------------------------- */
+.serif {
+  font-family: var(--font-serif);
+}
+
+.eyebrow {
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1.3333;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.eyebrow--wide {
+  letter-spacing: 0.28em;
+}
+
+.rule {
+  height: 1px;
+  background: var(--gold);
+  flex: none;
+}
+
+.prose {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--ink-88);
+}
+
+.prose--bright {
+  color: var(--ink-92);
+}
+
+.prose--dim {
+  color: var(--ink-82);
+}
+
+.prose + .prose {
+  margin-top: 1.5rem;
+}
+
+.accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+/* Stacks — the spacing rhythm of the whole page. */
+.stack-3 > * + * {
+  margin-top: 0.75rem;
+}
+.stack-4 > * + * {
+  margin-top: 1rem;
+}
+.stack-5 > * + * {
+  margin-top: 1.25rem;
+}
+.stack-6 > * + * {
+  margin-top: 1.5rem;
+}
+.stack-12 > * + * {
+  margin-top: 3rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. Reveal-on-scroll
+   -------------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.reveal--far {
+  transform: translateY(32px);
+}
+
+.reveal--fade {
+  transform: none;
+  transition: opacity 0.8s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-fade-in,
+  .hero__scroll {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Navigation
+   -------------------------------------------------------------------------- */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    backdrop-filter 0.3s ease;
+}
+
+.nav.is-scrolled {
+  background: rgba(20, 18, 37, 0.97);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom-color: var(--gold-border);
+}
+
+.nav__inner {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.nav__brand-name {
+  font-family: var(--font-serif);
+  font-size: 0.875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.nav__links {
+  display: none;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav__link {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-70);
+  transition: color 0.2s ease;
+}
+
+.nav__link:hover,
+.nav__link:focus-visible {
+  color: #fbbf24;
+}
+
+.nav__toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  color: var(--gold);
+}
+
+.nav__toggle span {
+  display: block;
+  width: 1.25rem;
+  height: 0.125rem;
+  background: currentColor;
+}
+
+.nav__mobile {
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 1.5rem 1.5rem;
+  background: rgba(20, 18, 37, 0.98);
+}
+
+.nav__mobile.is-open {
+  display: flex;
+}
+
+.nav__mobile-link {
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-80);
+}
+
+@media (min-width: 768px) {
+  .nav__links {
+    display: flex;
+  }
+  .nav__toggle,
+  .nav__mobile {
+    display: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. Hero
+   -------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(160deg, #141225 0%, #1a0d0d 50%, var(--maroon) 100%);
+}
+
+.hero__pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.1;
+  will-change: transform;
+}
+
+.hero__pattern svg {
+  width: 100%;
+  height: 100%;
+}
+
+.hero__topline {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.hero__flourish {
+  position: absolute;
+  opacity: 0.4;
+}
+.hero__flourish--tl {
+  top: 2rem;
+  left: 2rem;
+}
+.hero__flourish--tr {
+  top: 2rem;
+  right: 2rem;
+  transform: scaleX(-1);
+}
+.hero__flourish--bl {
+  bottom: 2rem;
+  left: 2rem;
+  transform: scaleY(-1);
+}
+.hero__flourish--br {
+  bottom: 2rem;
+  right: 2rem;
+  transform: scale(-1);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 10;
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 0;
+  text-align: center;
+}
+
+.hero__label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.hero__label .rule {
+  width: 4rem;
+}
+
+.hero__label span {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.hero__title {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
+  color: var(--ink);
+  text-shadow: 0 4px 40px rgba(160, 24, 24, 0.4);
+}
+
+.hero__title em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero__ornaments {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.hero__ornaments .rule {
+  width: 3rem;
+  background: var(--gold-muted);
+}
+
+.hero__lede {
+  max-width: 42rem;
+  margin: 0 auto;
+  font-size: 1.125rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--ink-82);
+}
+
+.hero__scroll {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--gold-mid);
+  animation: bounce 1s infinite;
+}
+
+.hero__scroll span {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.hero__fade {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 10rem;
+  background: linear-gradient(to bottom, transparent, var(--navy-deep));
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   7. Section shell
+   -------------------------------------------------------------------------- */
+.section {
+  position: relative;
+  padding: 6rem 0;
+  overflow: hidden;
+}
+
+.section--navy {
+  background: linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+}
+
+.section--maroon {
+  background: linear-gradient(180deg, var(--maroon) 0%, var(--maroon-dark) 100%);
+}
+
+.section__pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.section__pattern svg {
+  width: 100%;
+  height: 100%;
+}
+
+.section__inner {
+  position: relative;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section__header {
+  margin-bottom: 4rem;
+}
+
+.section__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.section__eyebrow .rule {
+  width: 3rem;
+}
+
+.section__heading {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.section__number {
+  font-family: var(--font-serif);
+  font-size: clamp(4rem, 8vw, 8rem);
+  line-height: 1;
+  color: var(--gold-ghost);
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.section__title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.section__underline {
+  margin-top: 1rem;
+  height: 1px;
+  width: 100%;
+  max-width: 20rem;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+/* --------------------------------------------------------------------------
+   8. Grids
+   -------------------------------------------------------------------------- */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+/* Grid tracks default to a min-content floor, which long words can push past.
+   Zeroing it keeps every column inside the viewport on narrow screens. */
+.grid > * {
+  min-width: 0;
+}
+
+.grid--halves {
+  gap: 2.5rem;
+}
+.grid--editorial {
+  gap: 3rem;
+  align-items: start;
+}
+.grid--editorial-tight {
+  gap: 2.5rem;
+}
+.grid--thirds {
+  gap: 1rem;
+}
+.grid--pair {
+  gap: 2rem;
+}
+.grid--quad {
+  gap: 0.75rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+.grid--start {
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .grid--halves,
+  .grid--pair {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid--thirds {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid--editorial {
+    grid-template-columns: repeat(12, 1fr);
+  }
+  .col-7 {
+    grid-column: span 7;
+  }
+  .col-5 {
+    grid-column: span 5;
+  }
+  .col-2of3 {
+    grid-column: span 2;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   9. Cards + editorial primitives
+   -------------------------------------------------------------------------- */
+.card {
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid var(--gold-border);
+  background: var(--surface-navy);
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 2rem;
+  }
+}
+
+.card--maroon {
+  background: var(--surface-maroon);
+}
+.card--navy-soft {
+  background: var(--surface-navy-soft);
+}
+.card--tinted {
+  background: rgba(160, 24, 24, 0.15);
+}
+.card--sheer {
+  background: rgba(15, 24, 48, 0.4);
+}
+.card--flush {
+  padding: 1.5rem;
+}
+.card--roomy {
+  padding: 2rem;
+}
+.card--wide {
+  padding: 2rem;
+}
+
+@media (min-width: 768px) {
+  .card--wide {
+    padding: 2.5rem;
+  }
+}
+
+.card__label {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.25rem;
+}
+
+.card__label--tight {
+  margin-bottom: 1rem;
+}
+
+.card__label--roomy {
+  margin-bottom: 1.5rem;
+}
+
+.card__label--light {
+  color: var(--gold-light);
+}
+
+/* Bulleted info list — the recurring "exhibit panel" list. */
+.bullets > li {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: var(--ink-88);
+}
+
+.bullets > li + li {
+  margin-top: 1rem;
+}
+
+.bullets > li::before {
+  content: '';
+  flex: none;
+  margin-top: 0.75rem;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.bullets--tight > li + li {
+  margin-top: 0.75rem;
+}
+
+/* Pull quote */
+.pullquote {
+  position: relative;
+  margin: 2rem 0;
+  padding: 0.5rem 0 0.5rem 2rem;
+  border-left: 3px solid var(--gold);
+}
+
+.pullquote p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.25rem;
+  line-height: 1.625;
+  color: var(--gold-light);
+}
+
+/* --------------------------------------------------------------------------
+   10. Introduction
+   -------------------------------------------------------------------------- */
+.intro {
+  position: relative;
+  padding: 7rem 0;
+  background: var(--maroon);
+}
+
+.intro__wave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3rem;
+  overflow: hidden;
+  line-height: 0;
+}
+.intro__wave--top {
+  top: 0;
+}
+.intro__wave--bottom {
+  bottom: 0;
+}
+.intro__wave svg {
+  width: 100%;
+  height: 100%;
+}
+
+.intro__inner {
+  position: relative;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.intro__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.intro__kicker {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  color: rgba(232, 199, 119, 0.8);
+}
+
+.intro__title {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  color: var(--ink);
+}
+
+@media (min-width: 768px) {
+  .intro__title {
+    font-size: 3.75rem;
+  }
+}
+
+.intro__ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.intro__ornament .rule {
+  width: 6rem;
+}
+
+.intro__lede {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--ink-95);
+  margin-bottom: 2rem;
+}
+
+.intro__card {
+  border-radius: 1rem;
+  padding: 2rem;
+  background: rgba(10, 8, 24, 0.35);
+  border: 1px solid var(--gold-border-strong);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.intro__card-note {
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: var(--ink-70);
+  margin-bottom: 1.5rem;
+}
+
+.jumplist a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: rgba(160, 24, 24, 0.2);
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.jumplist a:hover,
+.jumplist a:focus-visible {
+  background: rgba(160, 24, 24, 0.4);
+  transform: translateX(2px);
+}
+
+.jumplist__num {
+  flex: none;
+  width: 2rem;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--gold);
+}
+
+.jumplist__label {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.jumplist__sub {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--ink-50);
+}
+
+.jumplist__arrow {
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.jumplist a:hover .jumplist__arrow,
+.jumplist a:focus-visible .jumplist__arrow {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   11. Eyes — movement list
+   -------------------------------------------------------------------------- */
+.movements {
+  border-radius: 1rem;
+  overflow: hidden;
+  background: rgba(160, 24, 24, 0.15);
+  border: 1px solid var(--gold-border);
+}
+
+.movements__head {
+  padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.movements__item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 1rem 1.5rem;
+  transition: background 0.2s ease;
+}
+
+.movements__item + .movements__item {
+  border-top: 1px solid var(--gold-hairline);
+}
+
+.movements__item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.movements__dash {
+  flex: none;
+  margin-top: 0.125rem;
+  font-family: var(--font-serif);
+  font-size: 0.875rem;
+  color: var(--gold);
+}
+
+.movements__text {
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: var(--ink-88);
+}
+
+.movements__text b {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* Portrait medallion */
+.medallion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.medallion__disc {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(160, 24, 24, 0.4), rgba(15, 24, 48, 0.8));
+  border: 2px solid rgba(212, 169, 74, 0.3);
+  box-shadow: 0 0 60px rgba(160, 24, 24, 0.2);
+}
+
+.feature-panel {
+  border-radius: 1rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(160, 24, 24, 0.2), rgba(15, 24, 48, 0.8));
+  border: 1px solid var(--gold-border);
+}
+
+@media (min-width: 768px) {
+  .feature-panel {
+    padding: 2.5rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   12. Accordion
+   -------------------------------------------------------------------------- */
+.accordion > * + * {
+  margin-top: 0.5rem;
+}
+
+.accordion__item {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--gold-border);
+  background: var(--surface-navy-soft);
+}
+
+.accordion__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  text-align: left;
+  transition: background 0.2s ease;
+}
+
+.accordion__trigger:hover,
+.accordion__trigger:focus-visible {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.accordion__title {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.accordion__chevron {
+  flex: none;
+  color: var(--gold);
+  transition: transform 0.3s ease;
+}
+
+.accordion__trigger[aria-expanded='true'] .accordion__chevron {
+  transform: rotate(180deg);
+}
+
+.accordion__panel {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.35s ease,
+    opacity 0.3s ease;
+}
+
+.accordion__body {
+  padding: 0.25rem 1.5rem 1.25rem;
+  border-top: 1px solid var(--gold-hairline);
+  font-size: 0.875rem;
+  line-height: 1.9;
+  color: var(--ink-80);
+}
+
+/* --------------------------------------------------------------------------
+   13. Feet — technique tiles + character comparison
+   -------------------------------------------------------------------------- */
+.tile {
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: rgba(160, 24, 24, 0.2);
+  border: 1px solid var(--gold-border);
+  transition: transform 0.2s ease;
+}
+
+.tile:hover {
+  transform: translateY(-0.25rem);
+}
+
+.tile__name {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--gold);
+}
+
+.tile__desc {
+  font-size: 0.75rem;
+  line-height: 1.7;
+  color: var(--ink-75);
+}
+
+.role-card {
+  border-radius: 1rem;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid var(--gold-border);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.role-card:hover {
+  transform: scale(1.02);
+}
+
+.role-card--van {
+  background: linear-gradient(135deg, rgba(22, 33, 62, 0.67), rgba(15, 24, 48, 0.8));
+}
+.role-card--vo {
+  background: linear-gradient(135deg, rgba(160, 24, 24, 0.67), rgba(15, 24, 48, 0.8));
+}
+.role-card--dao {
+  background: linear-gradient(135deg, rgba(122, 15, 16, 0.67), rgba(15, 24, 48, 0.8));
+}
+
+.role-card__glyph {
+  font-family: var(--font-serif);
+  font-size: 2.25rem;
+  text-align: center;
+  padding: 1rem 0;
+  border-radius: 0.75rem;
+  color: var(--gold);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.role-card__name {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+}
+
+.role-card__desc {
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: var(--ink-78);
+}
+
+/* --------------------------------------------------------------------------
+   14. Illustration frames
+   -------------------------------------------------------------------------- */
+.figure-frame {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.figure-frame__box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  border-radius: 1rem;
+  background: rgba(15, 24, 48, 0.4);
+  border: 1px solid var(--gold-border);
+}
+
+.figure-frame__box--roomy {
+  padding: 2.5rem;
+}
+
+.figure-frame--centered {
+  margin-top: 0;
+  align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   15. Beard — swatch list, tabs, example block
+   -------------------------------------------------------------------------- */
+.swatch {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--surface-navy-soft);
+}
+
+.swatch__name {
+  font-size: 0.875rem;
+  color: var(--ink-88);
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.025em;
+  background: rgba(15, 24, 48, 0.6);
+  border: 1px solid var(--gold-border);
+  color: var(--ink-60);
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.tab[aria-selected='true'] {
+  background: var(--maroon);
+  border-color: var(--gold);
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.tabpanel {
+  border-radius: 1rem;
+  padding: 2rem;
+  background: rgba(15, 24, 48, 0.6);
+  border: 1px solid var(--gold-border);
+}
+
+.tabpanel[hidden] {
+  display: none;
+}
+
+.tabpanel__title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  color: var(--ink);
+}
+
+.tabpanel__subtitle {
+  font-size: 0.875rem;
+  font-style: italic;
+  line-height: 1.8;
+  color: var(--ink-70);
+  margin-bottom: 1.5rem;
+}
+
+.tabpanel .bullets {
+  margin-bottom: 1.5rem;
+}
+
+.example {
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  background: rgba(160, 24, 24, 0.2);
+  border: 1px solid rgba(212, 169, 74, 0.15);
+}
+
+.example__text {
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: var(--ink-82);
+  margin-bottom: 1rem;
+}
+
+.example__poem {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--gold-light);
+  white-space: pre-wrap;
+  margin-bottom: 1rem;
+}
+
+.example__poem:last-child {
+  margin-bottom: 0;
+}
+
+.subtechniques {
+  margin-top: 1.5rem;
+}
+
+.subtechniques > * + * {
+  margin-top: 0.75rem;
+}
+
+.subtechnique {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: var(--ink-88);
+  background: var(--gold-veil);
+  border: 1px solid var(--gold-hairline);
+}
+
+.subtechnique__dash {
+  flex: none;
+  margin-top: 0.125rem;
+  font-family: var(--font-serif);
+  color: var(--gold);
+}
+
+.note {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  background: var(--gold-veil);
+  border: 1px solid var(--gold-border);
+  font-size: 0.875rem;
+  line-height: 1.9;
+  color: var(--ink-80);
+}
+
+/* --------------------------------------------------------------------------
+   16. References + footer
+   -------------------------------------------------------------------------- */
+.references {
+  position: relative;
+  padding: 6rem 0;
+  background: linear-gradient(180deg, var(--navy-deep) 0%, var(--header-bg) 100%);
+}
+
+.references__rule {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
+}
+
+.references__inner {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 5rem 1.5rem 0;
+}
+
+.references__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.references__ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.references__ornament .rule {
+  width: 4rem;
+}
+
+.references__title {
+  font-family: var(--font-serif);
+  font-size: 2.25rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+
+@media (min-width: 768px) {
+  .references__title {
+    font-size: 3rem;
+  }
+}
+
+.references__subtitle {
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  color: var(--gold-warm);
+}
+
+.references__list {
+  margin-bottom: 5rem;
+}
+
+.references__list > * + * {
+  margin-top: 1rem;
+}
+
+.reference {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: rgba(160, 24, 24, 0.1);
+  border: 1px solid var(--gold-border);
+  transition: transform 0.3s ease;
+}
+
+.reference:hover {
+  transform: scale(1.01);
+}
+
+.reference__num {
+  flex: none;
+  width: 2.5rem;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 1.875rem;
+  line-height: 1;
+  color: var(--gold-muted);
+}
+
+.reference__title {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: var(--ink);
+}
+
+.reference__meta {
+  font-size: 0.875rem;
+  color: var(--ink-60);
+}
+
+.colophon {
+  text-align: center;
+}
+
+.colophon__ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.colophon__ornament .rule {
+  width: 8rem;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+
+.colophon__ornament .rule + .rule {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.colophon__star {
+  font-size: 1.5rem;
+  color: var(--gold);
+}
+
+.colophon__line {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+}
+
+/* --------------------------------------------------------------------------
+   17. Focus visibility
+   -------------------------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}

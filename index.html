@@ -1,21 +1,1059 @@
 <!doctype html>
-<html lang="<!-- figma:lang -->">
+<html lang="vi">
   <head>
     <!-- figma:head-start -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><!-- figma:title --></title>
-    <script>
-      if (window.location.protocol === 'file:') {
-        window.location.replace('http://localhost:8443/')
-      }
-    </script>
+    <title>Kĩ Thuật Biểu Diễn — Hát Bội</title>
+    <meta
+      name="description"
+      content="Kĩ thuật biểu diễn trong nghệ thuật hát bội: mắt, tay, chân, cưỡi ngựa và vuốt râu."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <noscript>
+      <!-- Reveal-on-scroll starts hidden; without JS it must never stay hidden. -->
+      <style>
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+        .accordion__panel {
+          max-height: none !important;
+          opacity: 1 !important;
+        }
+        .tabpanel[hidden] {
+          display: block !important;
+        }
+      </style>
+    </noscript>
     <!-- figma:head-end -->
   </head>
   <body>
     <!-- figma:body-start -->
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <a class="skip-link" href="#main">Bỏ qua phần điều hướng</a>
+
+    <!-- ====================================================================
+         SVG sprite: reusable ornaments and background patterns.
+         ==================================================================== -->
+    <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="geo" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+          <rect x="10" y="10" width="60" height="60" fill="none" stroke="#D4A94A" stroke-width="0.5" />
+          <rect x="20" y="20" width="40" height="40" fill="none" stroke="#D4A94A" stroke-width="0.3" transform="rotate(45 40 40)" />
+          <circle cx="40" cy="40" r="4" fill="none" stroke="#D4A94A" stroke-width="0.4" />
+        </pattern>
+        <pattern id="hex" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+          <path d="M60 10 L110 35 L110 85 L60 110 L10 85 L10 35 Z" fill="none" stroke="#D4A94A" stroke-width="0.8" />
+        </pattern>
+      </defs>
+
+      <!-- Lotus, full (navigation) -->
+      <symbol id="lotus-full" viewBox="0 0 28 28">
+        <ellipse cx="14" cy="18" rx="3" ry="6" stroke="#D4A94A" stroke-width="1.2" fill="none" />
+        <ellipse cx="8" cy="17" rx="2.5" ry="5.5" stroke="#D4A94A" stroke-width="1" fill="none" transform="rotate(-20 8 17)" />
+        <ellipse cx="20" cy="17" rx="2.5" ry="5.5" stroke="#D4A94A" stroke-width="1" fill="none" transform="rotate(20 20 17)" />
+        <ellipse cx="4" cy="18" rx="2" ry="4.5" stroke="#D4A94A" stroke-width="0.8" fill="none" transform="rotate(-40 4 18)" />
+        <ellipse cx="24" cy="18" rx="2" ry="4.5" stroke="#D4A94A" stroke-width="0.8" fill="none" transform="rotate(40 24 18)" />
+        <line x1="14" y1="22" x2="14" y2="26" stroke="#D4A94A" stroke-width="1.2" />
+        <line x1="10" y1="25" x2="18" y2="25" stroke="#D4A94A" stroke-width="1" />
+      </symbol>
+
+      <!-- Lotus, crown only (references) -->
+      <symbol id="lotus-crown" viewBox="0 0 28 22">
+        <ellipse cx="14" cy="15" rx="3" ry="6" stroke="#D4A94A" stroke-width="1.2" fill="none" />
+        <ellipse cx="7" cy="14" rx="2.5" ry="5.5" stroke="#D4A94A" stroke-width="1" fill="none" transform="rotate(-20 7 14)" />
+        <ellipse cx="21" cy="14" rx="2.5" ry="5.5" stroke="#D4A94A" stroke-width="1" fill="none" transform="rotate(20 21 14)" />
+        <ellipse cx="2" cy="16" rx="2" ry="4.5" stroke="#D4A94A" stroke-width="0.8" fill="none" transform="rotate(-40 2 16)" />
+        <ellipse cx="26" cy="16" rx="2" ry="4.5" stroke="#D4A94A" stroke-width="0.8" fill="none" transform="rotate(40 26 16)" />
+      </symbol>
+
+      <!-- Lotus, small (introduction) -->
+      <symbol id="lotus-small" viewBox="0 0 24 20">
+        <ellipse cx="12" cy="14" rx="2.5" ry="5" stroke="#D4A94A" stroke-width="1" fill="none" />
+        <ellipse cx="6" cy="13" rx="2" ry="4.5" stroke="#D4A94A" stroke-width="0.8" fill="none" transform="rotate(-20 6 13)" />
+        <ellipse cx="18" cy="13" rx="2" ry="4.5" stroke="#D4A94A" stroke-width="0.8" fill="none" transform="rotate(20 18 13)" />
+      </symbol>
+
+      <!-- Traditional cloud ornament -->
+      <symbol id="cloud" viewBox="0 0 32 16">
+        <path d="M1 12 Q4 2 8 8 Q12 2 16 8 Q20 2 24 8 Q28 2 31 12" stroke="#D4A94A" stroke-width="1" fill="none" stroke-linecap="round" />
+      </symbol>
+
+      <!-- Corner flourish -->
+      <symbol id="flourish" viewBox="0 0 48 48">
+        <path d="M4 44 L4 4 L44 4" stroke="#D4A94A" stroke-width="1.5" fill="none" stroke-linecap="square" />
+        <path d="M4 4 L14 14" stroke="#D4A94A" stroke-width="0.8" />
+        <circle cx="4" cy="4" r="3" fill="none" stroke="#D4A94A" stroke-width="1" />
+      </symbol>
+
+      <!-- Chevron (accordion) -->
+      <symbol id="chevron" viewBox="0 0 18 18">
+        <path d="M5 7l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" />
+      </symbol>
+
+      <!-- Arrow (jump list) -->
+      <symbol id="arrow" viewBox="0 0 16 16">
+        <path d="M4 8h8M9 5l3 3-3 3" stroke="#D4A94A" stroke-width="1.5" fill="none" stroke-linecap="round" />
+      </symbol>
+
+      <!-- Eye illustration -->
+      <symbol id="eye" viewBox="0 0 80 50">
+        <path d="M5 25 Q20 8 40 8 Q60 8 75 25 Q60 42 40 42 Q20 42 5 25 Z" stroke="#D4A94A" stroke-width="1.5" fill="none" />
+        <circle cx="40" cy="25" r="10" stroke="#D4A94A" stroke-width="1.2" fill="none" />
+        <circle cx="40" cy="25" r="5" fill="#D4A94A" fill-opacity="0.3" />
+        <circle cx="43" cy="22" r="2" fill="#D4A94A" />
+      </symbol>
+
+      <!-- Hand illustration -->
+      <symbol id="hand" viewBox="0 0 100 120">
+        <path d="M30 90 L30 40 Q30 30 38 30 Q46 30 46 40 L46 60" stroke="#D4A94A" stroke-width="2" fill="none" stroke-linecap="round" />
+        <path d="M46 60 L46 32 Q46 22 54 22 Q62 22 62 32 L62 60" stroke="#D4A94A" stroke-width="2" fill="none" stroke-linecap="round" />
+        <path d="M62 60 L62 36 Q62 26 70 26 Q78 26 78 36 L78 60" stroke="#D4A94A" stroke-width="2" fill="none" stroke-linecap="round" />
+        <path d="M78 60 L78 44 Q78 36 84 36 Q90 36 90 44 L90 70" stroke="#D4A94A" stroke-width="2" fill="none" stroke-linecap="round" />
+        <path d="M30 90 Q28 105 50 110 Q72 115 90 100 L90 70 Q70 80 46 78 L46 60" stroke="#D4A94A" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M20 60 Q10 55 10 70 Q10 80 20 82 L30 85" stroke="#D4A94A" stroke-width="2" fill="none" stroke-linecap="round" />
+        <circle cx="50" cy="30" r="2" fill="#D4A94A" fill-opacity="0.5" />
+      </symbol>
+
+      <!-- Horse-and-rider illustration -->
+      <symbol id="horse" viewBox="0 0 140 100">
+        <circle cx="70" cy="18" r="8" stroke="#D4A94A" stroke-width="1.5" fill="none" />
+        <path d="M70 26 L70 52 M60 38 L80 38 M70 52 L55 70 M70 52 L85 70" stroke="#D4A94A" stroke-width="1.5" fill="none" stroke-linecap="round" />
+        <path d="M80 38 Q100 30 120 20" stroke="#E8C777" stroke-width="1" fill="none" stroke-linecap="round" />
+        <circle cx="120" cy="20" r="2" fill="#E8C777" />
+        <ellipse cx="70" cy="75" rx="35" ry="12" stroke="#D4A94A" stroke-width="1" fill="none" stroke-dasharray="3 2" />
+        <path d="M35 70 L25 90 M105 70 L115 90" stroke="#D4A94A" stroke-width="1.2" fill="none" stroke-linecap="round" />
+        <path d="M45 68 L40 85" stroke="#D4A94A" stroke-width="1.2" fill="none" stroke-linecap="round" />
+        <path d="M95 68 L100 85" stroke="#D4A94A" stroke-width="1.2" fill="none" stroke-linecap="round" />
+        <path d="M35 67 Q20 55 18 45 Q16 35 25 33 L35 67" stroke="#D4A94A" stroke-width="1.2" fill="none" stroke-linecap="round" />
+        <path d="M60 34 Q40 45 25 40" stroke="#E8C777" stroke-width="0.8" fill="none" stroke-dasharray="2 1" />
+      </symbol>
+
+      <!-- Beard icons -->
+      <symbol id="beard-tufts" viewBox="0 0 32 24">
+        <path d="M8 4 Q8 18 8 20" stroke="#D4A94A" stroke-width="1.5" fill="none" stroke-linecap="round" />
+        <path d="M16 2 Q16 20 16 22" stroke="#D4A94A" stroke-width="1.5" fill="none" stroke-linecap="round" />
+        <path d="M24 4 Q24 18 24 20" stroke="#D4A94A" stroke-width="1.5" fill="none" stroke-linecap="round" />
+        <path d="M4 6 Q8 4 12 6" stroke="#D4A94A" stroke-width="1" fill="none" />
+        <path d="M20 6 Q24 4 28 6" stroke="#D4A94A" stroke-width="1" fill="none" />
+      </symbol>
+      <symbol id="beard-soldier" viewBox="0 0 32 24">
+        <path d="M6 3 L6 18 Q6 22 16 22 Q26 22 26 18 L26 3" stroke="#D4A94A" stroke-width="1.2" fill="none" stroke-linecap="round" />
+        <path d="M10 3 L10 20" stroke="#D4A94A" stroke-width="0.8" />
+        <path d="M14 3 L14 21" stroke="#D4A94A" stroke-width="0.8" />
+        <path d="M18 3 L18 21" stroke="#D4A94A" stroke-width="0.8" />
+        <path d="M22 3 L22 20" stroke="#D4A94A" stroke-width="0.8" />
+      </symbol>
+      <symbol id="beard-linked" viewBox="0 0 32 24">
+        <ellipse cx="16" cy="14" rx="12" ry="8" stroke="#D4A94A" stroke-width="1.2" fill="none" />
+        <path d="M8 14 Q16 6 24 14" stroke="#D4A94A" stroke-width="0.8" fill="none" />
+      </symbol>
+      <symbol id="beard-cut" viewBox="0 0 32 24">
+        <rect x="6" y="4" width="20" height="16" rx="3" stroke="#D4A94A" stroke-width="1.2" fill="none" />
+        <path d="M10 8 L22 8 M10 12 L22 12 M10 16 L22 16" stroke="#D4A94A" stroke-width="0.8" stroke-linecap="round" />
+      </symbol>
+    </svg>
+
+    <!-- ====================================================================
+         Navigation
+         ==================================================================== -->
+    <nav class="nav" id="nav" aria-label="Điều hướng chính">
+      <div class="nav__inner">
+        <div class="nav__brand">
+          <svg width="28" height="28" aria-hidden="true"><use href="#lotus-full" /></svg>
+          <span class="nav__brand-name">Hát Bội</span>
+        </div>
+
+        <div class="nav__links">
+          <a class="nav__link" href="#introduction">Tổng Quan</a>
+          <a class="nav__link" href="#mat">Mắt</a>
+          <a class="nav__link" href="#tay">Tay</a>
+          <a class="nav__link" href="#chan">Chân</a>
+          <a class="nav__link" href="#cuoi-ngua">Cưỡi Ngựa</a>
+          <a class="nav__link" href="#vuot-rau">Vuốt Râu</a>
+          <a class="nav__link" href="#references">Tài Liệu</a>
+        </div>
+
+        <button
+          class="nav__toggle"
+          id="nav-toggle"
+          type="button"
+          aria-label="Menu"
+          aria-expanded="false"
+          aria-controls="nav-mobile"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <div class="nav__mobile" id="nav-mobile">
+        <a class="nav__mobile-link" href="#introduction">Tổng Quan</a>
+        <a class="nav__mobile-link" href="#mat">Mắt</a>
+        <a class="nav__mobile-link" href="#tay">Tay</a>
+        <a class="nav__mobile-link" href="#chan">Chân</a>
+        <a class="nav__mobile-link" href="#cuoi-ngua">Cưỡi Ngựa</a>
+        <a class="nav__mobile-link" href="#vuot-rau">Vuốt Râu</a>
+        <a class="nav__mobile-link" href="#references">Tài Liệu</a>
+      </div>
+    </nav>
+
+    <main id="main">
+      <!-- ==================================================================
+           Hero
+           ================================================================== -->
+      <section class="hero">
+        <div class="hero__pattern" id="hero-pattern" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg">
+            <rect width="100%" height="100%" fill="url(#geo)" />
+          </svg>
+        </div>
+
+        <div class="hero__topline" aria-hidden="true"></div>
+
+        <div class="hero__flourish hero__flourish--tl" aria-hidden="true">
+          <svg width="48" height="48"><use href="#flourish" /></svg>
+        </div>
+        <div class="hero__flourish hero__flourish--tr" aria-hidden="true">
+          <svg width="48" height="48"><use href="#flourish" /></svg>
+        </div>
+        <div class="hero__flourish hero__flourish--bl" aria-hidden="true">
+          <svg width="48" height="48"><use href="#flourish" /></svg>
+        </div>
+        <div class="hero__flourish hero__flourish--br" aria-hidden="true">
+          <svg width="48" height="48"><use href="#flourish" /></svg>
+        </div>
+
+        <div class="hero__content animate-fade-in">
+          <div class="hero__label">
+            <div class="rule" aria-hidden="true"></div>
+            <span>Nghiên Cứu Nghệ Thuật</span>
+            <div class="rule" aria-hidden="true"></div>
+          </div>
+
+          <h1 class="hero__title">Kĩ Thuật<br /><em>Biểu Diễn</em></h1>
+
+          <div class="hero__ornaments" aria-hidden="true">
+            <svg width="32" height="16"><use href="#cloud" /></svg>
+            <div class="rule"></div>
+            <svg width="32" height="16"><use href="#cloud" /></svg>
+          </div>
+
+          <p class="hero__lede">
+            Không khó để nhận thấy rằng, sân khấu hát bội, bên cạnh giọng hát, lời thoại, còn chứa
+            đựng các yếu tố phi ngôn ngữ. Nhờ đó khán giả chỉ cần quan sát những điều bộ đặc trưng
+            thì có thể ngầm ra ý nghĩa của hành động, cảm xúc cũng như tính cách nhân vật.
+          </p>
+
+          <div class="hero__scroll" aria-hidden="true">
+            <span>Khám Phá</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 4v12M4 10l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="hero__fade" aria-hidden="true"></div>
+      </section>
+
+      <!-- ==================================================================
+           Introduction
+           ================================================================== -->
+      <section class="intro" id="introduction">
+        <div class="intro__wave intro__wave--top" aria-hidden="true">
+          <svg viewBox="0 0 1440 48" preserveAspectRatio="none">
+            <path d="M0 48 L0 24 Q180 0 360 24 Q540 48 720 24 Q900 0 1080 24 Q1260 48 1440 24 L1440 48 Z" fill="#0F1830" />
+          </svg>
+        </div>
+
+        <div class="intro__inner reveal reveal--far">
+          <div class="intro__header">
+            <span class="intro__kicker">A. Kĩ Thuật Biểu Diễn</span>
+            <h2 class="intro__title">I. Tổng Quan</h2>
+            <div class="intro__ornament" aria-hidden="true">
+              <div class="rule"></div>
+              <svg width="24" height="20"><use href="#lotus-small" /></svg>
+              <div class="rule"></div>
+            </div>
+          </div>
+
+          <div class="grid grid--editorial">
+            <div class="col-7">
+              <p class="intro__lede">
+                Không khó để nhận thấy rằng, sân khấu hát bội, bên cạnh giọng hát, lời thoại, còn
+                chứa đựng các yếu tố phi ngôn ngữ. Nhờ đó khán giả chỉ cần quan sát những điều bộ
+                đặc trưng thì có thể ngầm ra ý nghĩa của hành động, cảm xúc cũng như tính cách nhân
+                vật.
+              </p>
+              <p class="prose prose--dim">
+                Trong tạp chí "Số tay thưởng thức hát bội", Nhà nghiên cứu hát Huỳnh Ngọc Trảng đã
+                phân chia các kĩ thuật biểu diễn (điệu bộ) thành các khía cạnh chính, gồm:
+                <span class="accent">mắt, tay, chân, vuốt râu và cưỡi ngựa.</span>
+              </p>
+            </div>
+
+            <div class="col-5">
+              <div class="intro__card">
+                <p class="card__label card__label--roomy">II. Nội Dung</p>
+                <p class="intro__card-note">Các khía cạnh chính của kĩ thuật biểu diễn (điệu bộ):</p>
+
+                <div class="jumplist stack-3">
+                  <a href="#mat">
+                    <span class="jumplist__num">1</span>
+                    <span>
+                      <span class="jumplist__label">Mắt</span>
+                      <span class="jumplist__sub">Biểu cảm qua ánh mắt</span>
+                    </span>
+                    <svg class="jumplist__arrow" width="16" height="16" aria-hidden="true"><use href="#arrow" /></svg>
+                  </a>
+                  <a href="#tay">
+                    <span class="jumplist__num">2</span>
+                    <span>
+                      <span class="jumplist__label">Tay</span>
+                      <span class="jumplist__sub">Ngôn ngữ của đôi tay</span>
+                    </span>
+                    <svg class="jumplist__arrow" width="16" height="16" aria-hidden="true"><use href="#arrow" /></svg>
+                  </a>
+                  <a href="#chan">
+                    <span class="jumplist__num">3</span>
+                    <span>
+                      <span class="jumplist__label">Chân</span>
+                      <span class="jumplist__sub">Kĩ thuật di chuyển</span>
+                    </span>
+                    <svg class="jumplist__arrow" width="16" height="16" aria-hidden="true"><use href="#arrow" /></svg>
+                  </a>
+                  <a href="#cuoi-ngua">
+                    <span class="jumplist__num">4</span>
+                    <span>
+                      <span class="jumplist__label">Cưỡi Ngựa</span>
+                      <span class="jumplist__sub">Phương thức cưỡi ngựa</span>
+                    </span>
+                    <svg class="jumplist__arrow" width="16" height="16" aria-hidden="true"><use href="#arrow" /></svg>
+                  </a>
+                  <a href="#vuot-rau">
+                    <span class="jumplist__num">5</span>
+                    <span>
+                      <span class="jumplist__label">Vuốt Râu</span>
+                      <span class="jumplist__sub">Nghệ thuật vuốt râu</span>
+                    </span>
+                    <svg class="jumplist__arrow" width="16" height="16" aria-hidden="true"><use href="#arrow" /></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="intro__wave intro__wave--bottom" aria-hidden="true">
+          <svg viewBox="0 0 1440 48" preserveAspectRatio="none">
+            <path d="M0 0 L0 24 Q180 48 360 24 Q540 0 720 24 Q900 48 1080 24 Q1260 0 1440 24 L1440 0 Z" fill="#16213E" />
+          </svg>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           1. Mắt
+           ================================================================== -->
+      <section class="section section--navy" id="mat">
+        <div class="section__pattern" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="url(#hex)" /></svg>
+        </div>
+
+        <div class="section__inner reveal">
+          <header class="section__header">
+            <div class="section__eyebrow">
+              <div class="rule" aria-hidden="true"></div>
+              <span class="eyebrow eyebrow--wide">Kĩ Thuật Biểu Diễn</span>
+            </div>
+            <div class="section__heading">
+              <span class="section__number" aria-hidden="true">01</span>
+              <h2 class="section__title">1. Mắt</h2>
+            </div>
+            <div class="section__underline" aria-hidden="true"></div>
+          </header>
+
+          <div class="stack-12">
+            <div class="grid grid--halves">
+              <div>
+                <p class="prose">
+                  Đối với các diễn viên hát bội, đôi mắt chính là nguyên tác diễn xuất hàng đầu.
+                  Những suy tư đều được thể hiện qua đôi mắt, hay mỗi cách nhìn, cách ngó đều phản
+                  nào đó, tính cảm của nhân vật. Mỗi trạng thái thể hiện một loại tâm lí, tình cảm
+                  của nhân vật. Một số ví dụ tiêu biểu có thể kể đến:
+                </p>
+                <blockquote class="pullquote">
+                  <p>Đôi mắt chính là nguyên tắc diễn xuất hàng đầu.</p>
+                </blockquote>
+              </div>
+
+              <div class="movements">
+                <div class="movements__head">
+                  <p class="card__label card__label--tight">Các Loại Điệu Bộ Mắt</p>
+                </div>
+                <div class="movements__item">
+                  <span class="movements__dash" aria-hidden="true">—</span>
+                  <p class="movements__text"><b>Ngó nghiêng xuống:</b> mưu tính kế gì rồi, giải nguy.</p>
+                </div>
+                <div class="movements__item">
+                  <span class="movements__dash" aria-hidden="true">—</span>
+                  <p class="movements__text"><b>Ngó mơ nhìn:</b> Thể hiện sự yêu đương, ái tình.</p>
+                </div>
+                <div class="movements__item">
+                  <span class="movements__dash" aria-hidden="true">—</span>
+                  <p class="movements__text"><b>Dao lộn không ngừng:</b> Bị tà ma nhập, loạn trí, điên :)))</p>
+                </div>
+                <div class="movements__item">
+                  <span class="movements__dash" aria-hidden="true">—</span>
+                  <p class="movements__text"><b>Trợn to:</b> nói lên sự giận dữ.</p>
+                </div>
+                <div class="movements__item">
+                  <span class="movements__dash" aria-hidden="true">—</span>
+                  <p class="movements__text"><b>Liếc qua liếc lại:</b> Thể hiện sự oai vệ, anh dũng của các kép võ / đào võ.</p>
+                </div>
+                <div class="movements__item">
+                  <span class="movements__dash" aria-hidden="true">—</span>
+                  <p class="movements__text"><b>Ngó đăm, liếc đăm:</b> Thể hiện sự hiền từ.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-panel">
+              <div class="grid grid--thirds">
+                <div class="col-2of3">
+                  <p class="card__label card__label--tight">Nhân Vật Tướng</p>
+                  <p class="prose">
+                    Trong nhân vật Tướng, điệu bộ này tay được quy phạm hóa rất cao và đòi hỏi linh
+                    hoạt đa loại, tính cách nhân vật cũng như hoàn cảnh sân khấu. Cùng một kỹ thuật
+                    diễn đạt nhà khẩu sắc thái sự kiện xung quanh như sự từ sự lặng đầu, sự vui, sự
+                    hình hung, phấn nộ, cũng có thoáng rất mực tinh vi.
+                  </p>
+                  <p class="prose">
+                    Không chỉ mang chức năng thể hiện tâm lý và di chuyển vị trí thân xác trên sân
+                    khấu, việc sử dụng điệu bộ mắt bội cũng còn là phương tiện biểu diễn tinh lý và
+                    vị trí xã hội của các nhân vật. Vi vậy, việc sử dụng phép chỉ hướng gắn liền với
+                    các chuẩn mực lễ nghĩa sân khấu, ứng xử nhân vật và vị trí thể thứ bậc không
+                    được xác định mực lễ nghĩa sân khấu hát bội, chẳng hạn chuyện hướng vị trí về
+                    quan xét đến thị tuyến trực tiếp đối với cha mẹ.
+                  </p>
+                </div>
+                <div class="medallion">
+                  <div class="medallion__disc" aria-hidden="true">
+                    <svg width="80" height="50"><use href="#eye" /></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <p class="card__label">Yêu Cầu Nghề</p>
+              <ul class="bullets">
+                <li>
+                  Bên cạnh yêu cầu về ý nghĩa biểu đạt, kĩ thuật chỉ trong cuộn tuần thủ nguyên tắc
+                  thống nhất giữa ca và ảnh nhìn.
+                </li>
+                <li>
+                  Then đó, khi thực hiện động tác chi về mọi đối tượng mục phương hướng định, ảnh
+                  nhìn thường theo hướng thị được chỉ định.
+                </li>
+                <li>
+                  Sự phối hợp động tác bộ giữa tay và ánh mắt không chỉ mang lại góp phần tạo nên
+                  tính chính xác về hình thể, đồng thời tăng cường khả năng truyền đạt tải thông
+                  điệp đến khán giả.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           2. Tay
+           ================================================================== -->
+      <section class="section section--maroon" id="tay">
+        <div class="section__pattern" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="url(#hex)" /></svg>
+        </div>
+
+        <div class="section__inner reveal">
+          <header class="section__header">
+            <div class="section__eyebrow">
+              <div class="rule" aria-hidden="true"></div>
+              <span class="eyebrow eyebrow--wide">Kĩ Thuật Biểu Diễn</span>
+            </div>
+            <div class="section__heading">
+              <span class="section__number" aria-hidden="true">02</span>
+              <h2 class="section__title">2. Tay</h2>
+            </div>
+            <div class="section__underline" aria-hidden="true"></div>
+          </header>
+
+          <div class="stack-12">
+            <div class="grid grid--halves grid--start">
+              <div>
+                <p class="prose prose--bright">
+                  Trong sân khấu hát bội, mỗi thế tay đều có ý nghĩa của riêng nó. Đôi khi chỉ một
+                  ngón, khi thì 2 ngón, ngón tay chỉ có lúc nghiêng, có lúc úp. Mỗi thế chỉ đều có
+                  lí do và ý nghĩa riêng biệt.
+                </p>
+                <p class="prose prose--bright">Một số ví dụ tiêu biểu như sau:</p>
+
+                <div class="figure-frame">
+                  <div class="figure-frame__box" aria-hidden="true">
+                    <svg width="100" height="120"><use href="#hand" /></svg>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <p class="card__label card__label--light">Các Kĩ Thuật Chỉ Tay</p>
+                <div class="accordion" data-accordion>
+                  <div class="accordion__item">
+                    <button class="accordion__trigger" type="button" aria-expanded="false">
+                      <span class="accordion__title">Chỉ bằng hai ngón úp, thẳng trước ngực</span>
+                      <svg class="accordion__chevron" width="18" height="18" aria-hidden="true"><use href="#chevron" /></svg>
+                    </button>
+                    <div class="accordion__panel">
+                      <div class="accordion__body">Chi người / vật ở gần, của kép võ hay đào võ.</div>
+                    </div>
+                  </div>
+                  <div class="accordion__item">
+                    <button class="accordion__trigger" type="button" aria-expanded="false">
+                      <span class="accordion__title">Chỉ bằng hai ngón tay nghiêng, thẳng xéo hướng</span>
+                      <svg class="accordion__chevron" width="18" height="18" aria-hidden="true"><use href="#chevron" /></svg>
+                    </button>
+                    <div class="accordion__panel">
+                      <div class="accordion__body">Chi người / vật ở xa, của kép võ hay đào võ.</div>
+                    </div>
+                  </div>
+                  <div class="accordion__item">
+                    <button class="accordion__trigger" type="button" aria-expanded="false">
+                      <span class="accordion__title">Chỉ một ngón úp, thẳng trước ngực</span>
+                      <svg class="accordion__chevron" width="18" height="18" aria-hidden="true"><use href="#chevron" /></svg>
+                    </button>
+                    <div class="accordion__panel">
+                      <div class="accordion__body">Chỉ người hay hiện vật, của kép văn hay đào văn.</div>
+                    </div>
+                  </div>
+                  <div class="accordion__item">
+                    <button class="accordion__trigger" type="button" aria-expanded="false">
+                      <span class="accordion__title">Chỉ bằng hai ngón úp thẳng xéo hướng</span>
+                      <svg class="accordion__chevron" width="18" height="18" aria-hidden="true"><use href="#chevron" /></svg>
+                    </button>
+                    <div class="accordion__panel">
+                      <div class="accordion__body">Là cái chỉ cảnh buổi hay vui, hay trống tin, của kép văn hay đào văn.</div>
+                    </div>
+                  </div>
+                  <div class="accordion__item">
+                    <button class="accordion__trigger" type="button" aria-expanded="false">
+                      <span class="accordion__title">Chỉ bằng hai ngón, quay tròn lên, cả hai tay</span>
+                      <svg class="accordion__chevron" width="18" height="18" aria-hidden="true"><use href="#chevron" /></svg>
+                    </button>
+                    <div class="accordion__panel">
+                      <div class="accordion__body">Là chỉ đuổi hay chặn không cho người ta chạy theo.</div>
+                    </div>
+                  </div>
+                  <div class="accordion__item">
+                    <button class="accordion__trigger" type="button" aria-expanded="false">
+                      <span class="accordion__title">Chỉ một ngón, điểm trước mặt người</span>
+                      <svg class="accordion__chevron" width="18" height="18" aria-hidden="true"><use href="#chevron" /></svg>
+                    </button>
+                    <div class="accordion__panel">
+                      <div class="accordion__body">Là chỉ để đẩy đổ người đó ay.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <p class="card__label card__label--light">Tiếp Theo</p>
+              <div class="accordion" data-accordion>
+                <div class="accordion__item">
+                  <button class="accordion__trigger" type="button" aria-expanded="false">
+                    <span class="accordion__title">Chỉ một ngón, điểm bên cạnh tai</span>
+                    <svg class="accordion__chevron" width="18" height="18" aria-hidden="true"><use href="#chevron" /></svg>
+                  </button>
+                  <div class="accordion__panel">
+                    <div class="accordion__body">Là đường lặng tà người nào.</div>
+                  </div>
+                </div>
+                <div class="accordion__item">
+                  <button class="accordion__trigger" type="button" aria-expanded="false">
+                    <span class="accordion__title">Chỉ một ngón, đặt lên gò má</span>
+                    <svg class="accordion__chevron" width="18" height="18" aria-hidden="true"><use href="#chevron" /></svg>
+                  </button>
+                  <div class="accordion__panel">
+                    <div class="accordion__body">Là nói đến nhân sắc của mình.</div>
+                  </div>
+                </div>
+                <div class="accordion__item">
+                  <button class="accordion__trigger" type="button" aria-expanded="false">
+                    <span class="accordion__title">Chỉ một ngón đặt giữa miệng và cằm</span>
+                    <svg class="accordion__chevron" width="18" height="18" aria-hidden="true"><use href="#chevron" /></svg>
+                  </button>
+                  <div class="accordion__panel">
+                    <div class="accordion__body">Là ra lệnh mắc cở, hổ then.</div>
+                  </div>
+                </div>
+                <div class="accordion__item">
+                  <button class="accordion__trigger" type="button" aria-expanded="false">
+                    <span class="accordion__title">Chỉ một ngón rồi lấy chỉ vào miệng</span>
+                    <svg class="accordion__chevron" width="18" height="18" aria-hidden="true"><use href="#chevron" /></svg>
+                  </button>
+                  <div class="accordion__panel">
+                    <div class="accordion__body">
+                      Là tỏ ý chưng gheo người đối với mình (ví dụ Lưu Kim Đính chỉ gheo Cao Quán
+                      Bảo, Phàn Lê Huê gheo Tiết Đình Sơn v.v …)
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion__item">
+                  <button class="accordion__trigger" type="button" aria-expanded="false">
+                    <span class="accordion__title">Chỉ một ngón, liêu liêu trước mặt người</span>
+                    <svg class="accordion__chevron" width="18" height="18" aria-hidden="true"><use href="#chevron" /></svg>
+                  </button>
+                  <div class="accordion__panel">
+                    <div class="accordion__body">Là ngao ngữ người, chỉ người.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card card--navy-soft card--roomy">
+              <p class="card__label card__label--roomy">Bối Cảnh Hoạt Động Trong Nhân Vật Tướng</p>
+              <div class="grid grid--pair">
+                <p class="prose">
+                  Bên cạnh các động tác chi, tay trong sân khấu hát bội thì chức năng quan trọng
+                  nhất trong đó là Khi. Trong đó, thông qua nhất vẫn là bộ Khi: mưu nghĩ, thính, kỹ
+                  và cấu. Mỗi động tác có đặc điểm kĩ thuật riêng về cách đặt bàn chân, chuyển trọng
+                  tâm có thể và hướng vận động, từ đó tạo nên những sắc thái biểu cảm khác nhau:
+                </p>
+                <div class="card">
+                  <ul class="bullets">
+                    <li>Niêm: Đặt chân hơi nghiêng, gót chân hơi lòng đất.</li>
+                    <li>Thính: Chân cong hơi đưa cao ngang gối.</li>
+                    <li>Ký: Đặt gót chân vuông ngặt, ngón chân hơi đưa lên.</li>
+                    <li>Cấu: chân hơi cong đưa lên cao.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <p class="prose prose--dim">
+              Điệu bộ cuốn sân khấu Tuồng có có sự khác nhau giữa nhân vật, tùy theo tính cách, cảm
+              xúc, hoàn cảnh của các nhân vật:
+            </p>
+
+            <div class="card card--maroon">
+              <ul class="bullets">
+                <li>Kép văn: đi đứng chỉ định nhẹ, nhẹ nhàng, chậm rãi.</li>
+                <li>Kép võ: đi đứng chỉ định khi. Tinh cấu cao, mùa vẻ mạnh dạn. Thường đội kim khôi.</li>
+                <li>Đào võ: đi đứng chỉ định khít. Múa oai vẻ nhưng kim đào, chân không giơ cao, bước lên.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           3. Chân
+           ================================================================== -->
+      <section class="section section--navy" id="chan">
+        <div class="section__pattern" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="url(#hex)" /></svg>
+        </div>
+
+        <div class="section__inner reveal">
+          <header class="section__header">
+            <div class="section__eyebrow">
+              <div class="rule" aria-hidden="true"></div>
+              <span class="eyebrow eyebrow--wide">Kĩ Thuật Biểu Diễn</span>
+            </div>
+            <div class="section__heading">
+              <span class="section__number" aria-hidden="true">03</span>
+              <h2 class="section__title">3. Chân</h2>
+            </div>
+            <div class="section__underline" aria-hidden="true"></div>
+          </header>
+
+          <div class="stack-12">
+            <div class="grid grid--editorial grid--editorial-tight">
+              <div class="col-7 stack-6">
+                <p class="prose">
+                  Bên cạnh hệ thống đặc tay bộ, chân cũng là một thành tố quan trọng trong kĩ thuật
+                  biểu diễn của nghề Tuồng. Động tác chân không chỉ đảm nhiệm chức năng thể hiện
+                  trạng thái tâm lý, tính cách nhân vật và tính chất của các hành động sân khấu.
+                </p>
+                <p class="prose">
+                  Trải qua quá trình quy phạm hóa, nghệ thuật Tuồng đã xây dựng hệ thống bộ pháp với
+                  bốn động tác cơ bản gồm niêm, thính, ký và cấu.
+                </p>
+                <p class="prose">
+                  Mỗi động tác có đặc điểm kĩ thuật riêng về cách đặt bàn chân, chuyển trọng tâm cơ
+                  thể và hướng vận động, từ đó tạo nên những sắc thái biểu cảm khác nhau.
+                </p>
+              </div>
+
+              <div class="col-5">
+                <div class="grid grid--quad">
+                  <div class="tile">
+                    <span class="tile__name">Niêm</span>
+                    <p class="tile__desc">Đặt chân hơi nghiêng, gót chân hơi lòng đất.</p>
+                  </div>
+                  <div class="tile">
+                    <span class="tile__name">Thính</span>
+                    <p class="tile__desc">Chân cong hơi đưa cao ngang gối.</p>
+                  </div>
+                  <div class="tile">
+                    <span class="tile__name">Ký</span>
+                    <p class="tile__desc">Đặt gót chân vuông ngặt, ngón chân hơi đưa lên.</p>
+                  </div>
+                  <div class="tile">
+                    <span class="tile__name">Cấu</span>
+                    <p class="tile__desc">chân hơi cong đưa lên cao.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <p class="card__label card__label--roomy">Sự Khác Biệt Giữa Các Loại Nhân Vật</p>
+              <div class="grid grid--thirds">
+                <div class="role-card role-card--van">
+                  <div class="role-card__glyph" aria-hidden="true">文</div>
+                  <div>
+                    <p class="role-card__name">Kép Văn</p>
+                    <p class="role-card__desc">đi đứng chỉ định nhẹ, nhẹ nhàng, chậm rãi.</p>
+                  </div>
+                </div>
+                <div class="role-card role-card--vo">
+                  <div class="role-card__glyph" aria-hidden="true">武</div>
+                  <div>
+                    <p class="role-card__name">Kép Võ</p>
+                    <p class="role-card__desc">
+                      đi đứng chỉ định khi. Tinh cấu cao, mùa vẻ mạnh dạn. Thường đội kim khôi.
+                    </p>
+                  </div>
+                </div>
+                <div class="role-card role-card--dao">
+                  <div class="role-card__glyph" aria-hidden="true">女</div>
+                  <div>
+                    <p class="role-card__name">Đào Võ</p>
+                    <p class="role-card__desc">
+                      đi đứng chỉ định khít. Múa oai vẻ nhưng kim đào, chân không giơ cao, bước lên.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <p class="card__label">Lưu Ý Kĩ Thuật</p>
+              <ul class="bullets">
+                <li>
+                  Điệu bộ cuốn sân khấu Tuồng có có sự khác nhau giữa nhân vật, tùy theo tính cách,
+                  cảm xúc, hoàn cảnh của các nhân vật.
+                </li>
+                <li>Kép văn: đi đứng chỉ định nhẹ, nhẹ nhàng, chậm rãi.</li>
+                <li>Kép võ: đi đứng chỉ định khi. Tinh cấu cao, mùa vẻ mạnh dạn. Thường đội kim khôi.</li>
+                <li>Đào võ: đi đứng chỉ định khít. Múa oai vẻ nhưng kim đào, chân không giơ cao, bước lên.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           4. Cưỡi Ngựa
+           ================================================================== -->
+      <section class="section section--maroon" id="cuoi-ngua">
+        <div class="section__pattern" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="url(#hex)" /></svg>
+        </div>
+
+        <div class="section__inner reveal">
+          <header class="section__header">
+            <div class="section__eyebrow">
+              <div class="rule" aria-hidden="true"></div>
+              <span class="eyebrow eyebrow--wide">Kĩ Thuật Biểu Diễn</span>
+            </div>
+            <div class="section__heading">
+              <span class="section__number" aria-hidden="true">04</span>
+              <h2 class="section__title">4. Cưỡi Ngựa</h2>
+            </div>
+            <div class="section__underline" aria-hidden="true"></div>
+          </header>
+
+          <div class="stack-12">
+            <div class="grid grid--halves grid--start">
+              <div>
+                <p class="prose prose--bright">
+                  Trong cuốn "Số tay thưởng thức hát bội" của Huỳnh Ngọc Trảng, kĩ thuật (điệu bộ)
+                  cưỡi ngựa được nhận định "thực là khéo léo". Tuy rằng cưỡi ngựa trong hát bội chỉ
+                  là tương trưng, người xem lại có cảm nhận rõ ràng người nghệ sĩ trên sân khấu sẽ
+                  dùng cưỡi ngựa. Chỉ thông qua một cái roi mà người nghệ sĩ Tuồng có thể làm cho
+                  người xem này đang cưỡi ngựa.
+                </p>
+                <blockquote class="pullquote">
+                  <p>"Thực là khéo léo."</p>
+                </blockquote>
+              </div>
+
+              <div class="figure-frame figure-frame--centered">
+                <div class="figure-frame__box figure-frame__box--roomy" aria-hidden="true">
+                  <svg width="140" height="100"><use href="#horse" /></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="card card--navy-soft card--roomy">
+              <p class="card__label card__label--roomy">Kĩ Thuật Thực Hiện</p>
+              <div class="grid grid--pair">
+                <p class="prose">
+                  Nếu muốn lên ngựa, nghệ sĩ đứng thẳng tay trái lên cao (bước lên chân đằng), tay
+                  trái nắm lấy cương ngựa (ngự ý năm dây cương), tay mặt giữ roi ngựa lên cao (ngự ý
+                  cầm roi ngựa), sau đó hai chân bước đậm thêm bốn đến lớn cao, bước lên lên.
+                </p>
+                <p class="prose">
+                  Khi xuống ngựa, nghệ sĩ bước qua một bên rồi ra bộ tháo dây cương cột vào gốc cây,
+                  quăng cái ngựa xuống đất.
+                </p>
+              </div>
+            </div>
+
+            <p class="prose prose--dim">
+              Bên cạnh yêu cầu về ý nghĩa biểu đạt, kĩ thuật chỉ trong cuộn tuần thủ nguyên tắc
+              thống nhất giữa ca và ánh nhìn. Điệu bộ này cuốn sân khấu Tuồng có có sự khác nhau
+              giữa nhân vật, tùy theo tính cách, cảm xúc, hoàn cảnh của các nhân vật. Cùng một kỹ
+              thuật diễn đạt, nhưng rối qua nhiều chuẩn mực lễ nghĩa, ứng xử nhân vật và vị trí thứ
+              bậc không được xác định mực lễ nghĩa trực tiếp đối với cha mẹ.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           5. Vuốt Râu
+           ================================================================== -->
+      <section class="section section--navy" id="vuot-rau">
+        <div class="section__pattern" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="url(#hex)" /></svg>
+        </div>
+
+        <div class="section__inner reveal">
+          <header class="section__header">
+            <div class="section__eyebrow">
+              <div class="rule" aria-hidden="true"></div>
+              <span class="eyebrow eyebrow--wide">Kĩ Thuật Biểu Diễn</span>
+            </div>
+            <div class="section__heading">
+              <span class="section__number" aria-hidden="true">05</span>
+              <h2 class="section__title">5. Vuốt Râu</h2>
+            </div>
+            <div class="section__underline" aria-hidden="true"></div>
+          </header>
+
+          <div class="stack-12">
+            <div class="grid grid--halves">
+              <div>
+                <p class="prose">
+                  Trong sân khấu hát bội, có ba màu râu chủ yếu, gồm màu đen, bạc / trắng và hung
+                  (đỏ). Những người dùng tuổi thường đeo râu đen, người cao tuổi thường đeo râu
+                  tráng trắng, hay loại râu thường có bộ tướng phân phúc, hay loại phù thủy. Râu
+                  trong sân khấu hát bội cũng được chọn lựa theo quy định nghiêm ngặt, không phải
+                  muốn vuốt sao tùy ý, mà người nghệ sĩ phải biết vuốt theo những quy ước định sẵn:
+                </p>
+                <blockquote class="pullquote">
+                  <p>Râu trong sân khấu hát bội cũng được chọn lựa theo quy định nghiêm ngặt.</p>
+                </blockquote>
+              </div>
+
+              <div class="card card--tinted card--flush">
+                <p class="card__label">Các Loại Râu</p>
+                <div class="stack-3">
+                  <div class="swatch">
+                    <svg width="32" height="24" aria-hidden="true"><use href="#beard-tufts" /></svg>
+                    <span class="swatch__name">Râu ba chòm, râu năm chòm</span>
+                  </div>
+                  <div class="swatch">
+                    <svg width="32" height="24" aria-hidden="true"><use href="#beard-soldier" /></svg>
+                    <span class="swatch__name">Râu quân</span>
+                  </div>
+                  <div class="swatch">
+                    <svg width="32" height="24" aria-hidden="true"><use href="#beard-linked" /></svg>
+                    <span class="swatch__name">Râu liên tư</span>
+                  </div>
+                  <div class="swatch">
+                    <svg width="32" height="24" aria-hidden="true"><use href="#beard-cut" /></svg>
+                    <span class="swatch__name">Râu cắt / râu chuột</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div data-tabs>
+              <div class="tabs" role="tablist" aria-label="Các loại râu">
+                <button class="tab" type="button" role="tab" id="tab-chom" aria-controls="panel-chom" aria-selected="true">
+                  Râu Ba Chòm &amp; Râu Năm Chòm
+                </button>
+                <button class="tab" type="button" role="tab" id="tab-quan" aria-controls="panel-quan" aria-selected="false" tabindex="-1">
+                  Râu Quân
+                </button>
+                <button class="tab" type="button" role="tab" id="tab-lien-tu" aria-controls="panel-lien-tu" aria-selected="false" tabindex="-1">
+                  Râu Liên Tư
+                </button>
+                <button class="tab" type="button" role="tab" id="tab-cat" aria-controls="panel-cat" aria-selected="false" tabindex="-1">
+                  Râu Cắt
+                </button>
+              </div>
+
+              <div class="tabpanel" role="tabpanel" id="panel-chom" aria-labelledby="tab-chom" tabindex="0">
+                <h3 class="tabpanel__title">Râu Ba Chòm &amp; Râu Năm Chòm</h3>
+                <p class="tabpanel__subtitle">Với râu ba chòm và râu năm chòm:</p>
+                <ul class="bullets bullets--tight">
+                  <li>Hai tay vuốt chòm bên mép, nửa chừng ngừng: ve suy nghĩ một điều thắc mắc.</li>
+                  <li>Vuốt thẳng tay: Ngụ ý đã suy nghĩ xong xuôi.</li>
+                </ul>
+
+                <div class="example">
+                  <p class="card__label card__label--tight">Ví Dụ</p>
+                  <p class="example__text">
+                    Ví dụ, trong tuồng Phục Hoa Dung, khi nghệ Tào Tháo kéo om dài dòng, ông Quan
+                    Công lấy lắm phân vân, tay mắt vuốt chòm râu bên mép tai, nhưng vuốt đến nửa
+                    chừng thì ngừng, miệng vừa nói lời:
+                  </p>
+                  <p class="example__poem">Vạn ngôn Tào thủa tưởng
+Quan tâm bất tr an
+(Nghe Tào thủa tướng kế,
+Lòng ta thấy không yên)</p>
+                  <p class="example__text">
+                    Kể đó, Quan Công ra dáng suy nghĩ một chút rồi mở mặt lớn ra, nhìn Tào Tháo
+                    đương quỳ dưới đất, tay vua luôn vuốt chòm râu, miệng vừa nói lời:
+                  </p>
+                  <p class="example__poem">Tào công! Nhân tiên ân (tại) đắc xá chi
+(Nay ông hỡi Tào, ta vì nghĩa trước kia cho nên ta lấy
+đặc mà tha cho đó!)</p>
+                </div>
+
+                <div class="subtechniques">
+                  <div class="subtechnique">
+                    <span class="subtechnique__dash" aria-hidden="true">—</span>
+                    <span>Hai tay bọ trọn hàm râu quảng bộng qua một bên: là ngụ ý giận dữ và thách đố người đối thoại.</span>
+                  </div>
+                  <div class="subtechnique">
+                    <span class="subtechnique__dash" aria-hidden="true">—</span>
+                    <span>
+                      Một tay bọ trọn hàm râu lặt úp đưa qua lại trên hàm râu. Như râu quần, vuốt
+                      chậm biểu thị sự vui vẻ, đắc ý, lúc giận thì vuốt mau và nhiều lần liên tiếp.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tabpanel" role="tabpanel" id="panel-quan" aria-labelledby="tab-quan" tabindex="0" hidden>
+                <h3 class="tabpanel__title">Râu Quân</h3>
+                <p class="tabpanel__subtitle">
+                  Râu quân chỉ có một cách vuốt, là dùng ngón cái và hai ngón kế lắc ngón ra đây ts
+                  bên ngay sang bên kia,rồi lặt lại qua bên này.
+                </p>
+                <ul class="bullets bullets--tight">
+                  <li>Vuốt chậm ngụ ý sự đắc ý, vui vẻ.</li>
+                  <li>vuốt nhanh nhiều lần liên tiếp biểu hiện sự bất bình, giận dữ.</li>
+                </ul>
+              </div>
+
+              <div class="tabpanel" role="tabpanel" id="panel-lien-tu" aria-labelledby="tab-lien-tu" tabindex="0" hidden>
+                <h3 class="tabpanel__title">Râu Liên Tư</h3>
+                <p class="tabpanel__subtitle">Với râu liên tư:</p>
+                <ul class="bullets bullets--tight">
+                  <li>Hai bàn tay ôm hàm râu vuốt xuống, nửa chừng ngừng: ve suy nghĩ một điều thắc mắc.</li>
+                  <li>Vuốt thẳng tay: Ngụ ý đã suy nghĩ xong xuôi.</li>
+                  <li>Lần hai bàn tay phía trong, phất hàm râu ra: ngụ ý "ta đây ai ai cũng phải kiêng nể".</li>
+                  <li>Lần hai bàn tay phía trong, phất hàm râu ra: tỏ ý đang giận dữ.</li>
+                </ul>
+              </div>
+
+              <div class="tabpanel" role="tabpanel" id="panel-cat" aria-labelledby="tab-cat" tabindex="0" hidden>
+                <h3 class="tabpanel__title">Râu Cắt</h3>
+                <p class="tabpanel__subtitle">
+                  Râu cắt chỉ có một cách vuốt, là dùng trọn bàn tay lắt úp đưa qua lại trên hàm râu.
+                </p>
+                <ul class="bullets bullets--tight">
+                  <li>
+                    Như râu quần, vuốt chậm biểu thị sự vui vẻ, đắc ý, lúc giận thì vuốt mau và
+                    nhiều lần liên tiếp.
+                  </li>
+                </ul>
+                <div class="note">
+                  Râu chuột cũng có một cách vuốt, là dùng ngón cái và ngón trỏ xe mép râu rồi búng
+                  lên, bên trái hay bên mặt cũng vậy. Khi vuốt như thế, người nghệ sĩ mang râu này
+                  cho khán giả ghét con người tiêu nhân hèn hạ.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           Tài Liệu Tham Khảo
+           ================================================================== -->
+      <section class="references reveal reveal--fade" id="references">
+        <div class="references__rule" aria-hidden="true"></div>
+
+        <div class="references__inner">
+          <header class="references__header">
+            <div class="references__ornament" aria-hidden="true">
+              <div class="rule"></div>
+              <svg width="28" height="22"><use href="#lotus-crown" /></svg>
+              <div class="rule"></div>
+            </div>
+            <h2 class="references__title">Tài Liệu Tham Khảo</h2>
+            <p class="references__subtitle">References</p>
+          </header>
+
+          <div class="references__list">
+            <div class="reference">
+              <span class="reference__num" aria-hidden="true">1</span>
+              <div>
+                <p class="reference__title">Vũ đạo trong nghệ thuật Tuồng</p>
+                <p class="reference__meta">Thúy Hường, 2021</p>
+              </div>
+            </div>
+            <div class="reference">
+              <span class="reference__num" aria-hidden="true">2</span>
+              <div>
+                <p class="reference__title">Số tay thưởng thức hát bội</p>
+                <p class="reference__meta">Huỳnh Ngọc Trang. Nhà xuất bản Trẻ thành phố Hồ Chí Minh</p>
+              </div>
+            </div>
+            <div class="reference">
+              <span class="reference__num" aria-hidden="true">3</span>
+              <div>
+                <p class="reference__title">Nghệ thuật sân khấu hát Bội</p>
+                <p class="reference__meta">Lê Văn Chiểu. Nhà xuất bản Trẻ</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="colophon">
+            <div class="colophon__ornament" aria-hidden="true">
+              <div class="rule"></div>
+              <span class="colophon__star">✦</span>
+              <div class="rule"></div>
+            </div>
+            <p class="colophon__line">Kĩ Thuật Biểu Diễn — Hát Bội</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="assets/js/main.js" defer></script>
     <!-- figma:body-end -->
   </body>
 </html>

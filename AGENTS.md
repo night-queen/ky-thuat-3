@@ -1,23 +1,53 @@
-# figma-make-app
+# Kĩ Thuật Biểu Diễn — Hát Bội
 
-React + Vite + Tailwind CSS project running inside Figma Make.
+A static long-form editorial website. **No framework, no bundler, no dependencies.**
+Plain HTML + CSS + vanilla JS, served straight from disk.
 
-## Development Server
+## Running it
 
-A Vite development server is **always running** on `$PORT` (default 8443). You don't need to start it manually.
+The site is fully static — `index.html` can be opened directly in a browser with
+no server at all.
 
-- Preview URL: The user can access the running app through the preview panel
-- Hot reload: Changes to source files are reflected immediately
+For the Figma Make preview panel, a dev server runs on `$PORT` (default 8443):
 
-## Key Files
+```
+pnpm run dev       # serve the repo root
+pnpm run build     # copy index.html + assets/ into dist/
+pnpm run preview   # serve dist/
+```
 
-- `src/App.tsx` - Main application component
-- `src/main.tsx` - React entry point
-- `src/index.css` - Global styles and Tailwind CSS import
-- `package.json` - Dependencies and scripts
-- `vite.config.ts` - Vite configuration
-- `.mise.toml` - Toolchain versions (Node.js, pnpm)
+Both scripts are zero-dependency Node programs under `tools/`. There is nothing
+to install — `pnpm install` is a no-op.
 
-## Styling
+Edits are picked up on browser refresh. There is no HMR and no watcher; the
+server reads from disk on every request and sends `cache-control: no-cache`.
 
-This project uses **Tailwind CSS v4** for styling. Use Tailwind utility classes directly in JSX. Tailwind is loaded via the Vite plugin — no PostCSS config needed.
+## Key files
+
+- `index.html` — the entire page. All content lives here, in document order.
+  An inline SVG sprite at the top of `<body>` holds every ornament
+  (`<symbol>`) and background pattern (`<pattern>`); the page references them
+  with `<use href="#id">` and `fill="url(#id)"`.
+- `assets/css/style.css` — the whole stylesheet, organised in numbered
+  sections. Design tokens are CSS custom properties on `:root`.
+- `assets/js/main.js` — the behaviour layer: sticky nav, mobile menu, hero
+  parallax, reveal-on-scroll, accordions, tabs. One IIFE, no modules.
+- `tools/dev-server.mjs`, `tools/build.mjs` — the dev/build scripts.
+- `reference/` — source material. `design-brief.md` is the original brief;
+  the `IMG_*.png` files are the source document pages. Not shipped.
+
+## Conventions
+
+- **Content is the source of truth.** The Vietnamese wording comes from the
+  source document and must not be rewritten, paraphrased, or "corrected".
+  Formatting and layout are free to change; wording is not.
+- Colour, type, and spacing come from the tokens in `:root`. Add a token
+  rather than hard-coding a new value.
+- Class names are semantic BEM-ish (`.section__title`, `.card--maroon`), not
+  utility classes.
+- The `md` breakpoint is `768px`, applied mobile-first via
+  `@media (min-width: 768px)`.
+- Keep `.reveal` elements working without JS — the `<noscript>` block in
+  `<head>` forces them visible.
+- The `<!-- figma:* -->` comments in `index.html` are Figma Make injection
+  slots. Leave them in place.

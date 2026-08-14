@@ -1,27 +1,13 @@
 {
-  "name": "figma-make-app",
+  "name": "ky-thuat-bieu-dien-hat-boi",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
+  "description": "Kĩ Thuật Biểu Diễn — Hát Bội. A static long-form editorial site. No framework, no bundler.",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
-    "build": "vite build",
-    "preview": "vite preview",
-    "format": "oxfmt"
-  },
-  "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "^22.0.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "@vitejs/plugin-react": "^6.0.0",
-    "tailwindcss": "^4.0.0",
-    "@tailwindcss/vite": "^4.0.0",
-    "oxfmt": "^0.2.0",
-    "typescript": "^5.7.0",
-    "vite": "^8.0.0"
+    "dev": "node tools/dev-server.mjs",
+    "build": "node tools/build.mjs",
+    "preview": "node tools/dev-server.mjs --root dist",
+    "format": "pnpm dlx oxfmt@^0.2.0"
   }
 }
